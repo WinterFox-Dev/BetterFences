@@ -1,0 +1,14 @@
+{
+  "replace": false,
+  "values": [
+    "betterfences:onlyfence_acacia",
+    "betterfences:onlyfence_birch",
+    "betterfences:onlyfence_crimson",
+    "betterfences:onlyfence_dark_oak",
+    "betterfences:onlyfence_jungle",
+    "betterfences:onlyfence_mangrove",
+    "betterfences:onlyfence_oak",
+    "betterfences:onlyfence_spruce",
+    "betterfences:onlyfence_warped"
+  ]
+}

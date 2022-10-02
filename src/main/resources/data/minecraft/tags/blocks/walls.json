@@ -1,0 +1,27 @@
+{
+  "replace": false,
+  "values": [
+    "betterfences:onlyfence_cobblestone_wall",
+    "betterfences:onlyfence_mossy_cobblestone_wall",
+    "betterfences:onlyfence_brick_wall",
+    "betterfences:onlyfence_prismarine_wall",
+    "betterfences:onlyfence_red_sandstone_wall",
+    "betterfences:onlyfence_mossy_stone_brick_wall",
+    "betterfences:onlyfence_granite_wall",
+    "betterfences:onlyfence_stone_brick_wall",
+    "betterfences:onlyfence_nether_brick_wall",
+    "betterfences:onlyfence_andesite_wall",
+    "betterfences:onlyfence_red_nether_brick_wall",
+    "betterfences:onlyfence_sandstone_wall",
+    "betterfences:onlyfence_end_stone_brick_wall",
+    "betterfences:onlyfence_diorite_wall",
+    "betterfences:onlyfence_blackstone_wall",
+    "betterfences:onlyfence_polished_blackstone_brick_wall",
+    "betterfences:onlyfence_polished_blackstone_wall",
+    "betterfences:onlyfence_cobbled_deepslate_wall",
+    "betterfences:onlyfence_polished_deepslate_wall",
+    "betterfences:onlyfence_deepslate_tile_wall",
+    "betterfences:onlyfence_deepslate_brick_wall",
+    "betterfences:onlyfence_mud_brick_wall"
+  ]
+}
