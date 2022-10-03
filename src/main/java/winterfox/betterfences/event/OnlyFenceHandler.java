@@ -17,9 +17,12 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.AxeItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.PickaxeItem;
+import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.*;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.properties.Property;
+import net.minecraft.world.level.block.state.properties.WallSide;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.Event;
 import net.minecraftforge.eventbus.api.EventPriority;
@@ -115,8 +118,14 @@ public class OnlyFenceHandler {
 
         if(stack.getItem() instanceof PickaxeItem) {
             if(level.getBlockState(pos).getBlock() instanceof WallBlock rightClicked) {
-                level.setBlockAndUpdate(pos, setBlockStateFromBlock(event, (WallBlock) wall.get(rightClicked)));
-                level.playSound(player, pos, SoundEvents.WOOD_HIT, SoundSource.BLOCKS, 1.0F, 1.0F);
+                level.setBlockAndUpdate(pos, wall.get(rightClicked).defaultBlockState());
+                level.updateNeighborsAt(pos.west(), null);
+                level.updateNeighborsAt(pos.east(), null);
+                level.updateNeighborsAt(pos.south(), null);
+                level.updateNeighborsAt(pos.north(), null);
+                level.updateNeighborsAt(pos.above(), null);
+                level.updateNeighborsAt(pos.below(), null);
+                level.playSound(player, pos, SoundEvents.STONE_PLACE, SoundSource.BLOCKS, 1.0F, 1.0F);
                 if(player instanceof ServerPlayer) {
                     CriteriaTriggers.ITEM_USED_ON_BLOCK.trigger((ServerPlayer) player, pos, stack);
                 }
@@ -140,7 +149,7 @@ public class OnlyFenceHandler {
         if(stack.getItem() instanceof AxeItem) {
             if(level.getBlockState(pos).getBlock() instanceof FenceBlock rightClicked) {
                 level.setBlockAndUpdate(pos, setBlockStateFromBlock(event, (FenceBlock)fence.get(rightClicked)));
-                level.playSound(player, pos, SoundEvents.WOOD_HIT, SoundSource.BLOCKS, 1.0F, 1.0F);
+                level.playSound(player, pos, SoundEvents.WOOD_PLACE, SoundSource.BLOCKS, 1.0F, 1.0F);
                 if(player instanceof ServerPlayer) {
                     CriteriaTriggers.ITEM_USED_ON_BLOCK.trigger((ServerPlayer) player, pos, stack);
                 }
@@ -167,28 +176,5 @@ public class OnlyFenceHandler {
                 .setValue(FenceBlock.WEST, block.connectsTo(westState, westState.isFaceSturdy(event.getLevel(), west, Direction.EAST), Direction.EAST))
                 .setValue(FenceBlock.SOUTH, block.connectsTo(southState, southState.isFaceSturdy(event.getLevel(), south, Direction.NORTH), Direction.NORTH));
     }
-
-    public static BlockState setBlockStateFromBlock(PlayerInteractEvent.RightClickBlock event, WallBlock block) {
-        BlockPos west = event.getPos().west();
-        BlockState westState = event.getLevel().getBlockState(west);
-        BlockPos east = event.getPos().east();
-        BlockState eastState = event.getLevel().getBlockState(east);
-        BlockPos north = event.getPos().north();
-        BlockState northState = event.getLevel().getBlockState(north);
-        BlockPos south = event.getPos().south();
-        BlockState southState = event.getLevel().getBlockState(south);
-        return block.defaultBlockState()
-                .setValue(WallBlock.NORTH_WALL, wallConnectsTo(block, northState, northState.isFaceSturdy(event.getLevel(), north, Direction.SOUTH), Direction.SOUTH))
-                .setValue(WallBlock.EAST_WALL, wallConnectsTo(block, eastState, eastState.isFaceSturdy(event.getLevel(), east, Direction.WEST), Direction.WEST))
-                .setValue(WallBlock.WEST_WALL, wallConnectsTo(block, westState, westState.isFaceSturdy(event.getLevel(), west, Direction.EAST), Direction.EAST))
-                .setValue(WallBlock.SOUTH_WALL, wallConnectsTo(block, southState, southState.isFaceSturdy(event.getLevel(), south, Direction.NORTH), Direction.NORTH));
-    }
-
-    private static boolean wallConnectsTo(Block wall, BlockState p_58021_, boolean p_58022_, Direction p_58023_) {
-        Block block = p_58021_.getBlock();
-        boolean flag = block instanceof FenceGateBlock && FenceGateBlock.connectsToDirection(p_58021_, p_58023_);
-        return p_58021_.is(BlockTags.WALLS) || !wall.isExceptionForConnection(p_58021_) && p_58022_ || block instanceof IronBarsBlock || flag;
-    }
-
 
 }
