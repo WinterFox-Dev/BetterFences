@@ -10,21 +10,16 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import org.slf4j.Logger;
-import winterfox.betterfences.registry.BlockRegistry;
-import winterfox.betterfences.registry.ItemRegistry;
 
 @Mod(BetterFences.MODID)
 public class BetterFences
 {
     public static final String MODID = "betterfences";
+    public static final Logger LOGGER = LogUtils.getLogger();
 
     public BetterFences()
     {
         IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-
-        BlockRegistry.BLOCKS.register(modEventBus);
-        ItemRegistry.ITEMS.register(modEventBus);
-
         MinecraftForge.EVENT_BUS.register(this);
     }
 }

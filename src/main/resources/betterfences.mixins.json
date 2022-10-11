@@ -1,0 +1,17 @@
+{
+  "required": true,
+  "package": "winterfox.betterfences.mixins",
+  "compatibilityLevel": "JAVA_17",
+  "refmap": "betterfences.refmap.json",
+  "mixins": [
+    "MixinFenceBlock",
+    "MixinBlock",
+    "IMixinCrossCollisionBlock",
+    "IMixinBlock",
+    "MixinBlockBehaviour",
+    "MixinIronBarsBlock"
+  ],
+  "client": [
+  ],
+  "minVersion": "0.8"
+}
